@@ -37,11 +37,12 @@ app.set("views", "./src/views");
 //carpeta static Public
 app.use(express.static('./src/public'));
 
-//routes
+//routes DB
 app.use("/api/client", routerUser);
 app.use("/api/products", routerDB);
 app.use("/api/cart", routerCartDB);
 
+//routes FS
 // app.use("/api/products", routerProducts);
 // app.use("/api/carts", routerCarts);
 
