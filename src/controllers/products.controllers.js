@@ -37,7 +37,7 @@ export const createProduct = async (req, res) => {
 export const productUpdate = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedProductData = req.body; // Datos actualizados del producto
+        const updatedProductData = req.body; 
         
         const updatedProduct = await productDao.updateProduct(id, updatedProductData);
 
