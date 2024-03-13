@@ -38,11 +38,9 @@ export const productUpdate = async (req, res) => {
     try {
         const { id } = req.params;
         const updatedProductData = req.body; // Datos actualizados del producto
-
-        // Llama a la función de tu DAO para actualizar el producto
+        
         const updatedProduct = await productDao.updateProduct(id, updatedProductData);
 
-        // Verifica si el producto se actualizó correctamente
         if (updatedProduct) {
             res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
         } else {
