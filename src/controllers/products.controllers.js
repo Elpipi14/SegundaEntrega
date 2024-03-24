@@ -4,8 +4,8 @@ const productDao = new ProductsManager();
 
 export const getAll = async (req, res) => {
     try {
-        const { page, limit, sort, year } = req.query;
-        const products = await productDao.getAll(page, limit, sort, year);
+        const { page, limit, sortOrder, year } = req.query;
+        const products = await productDao.getAll(page, limit, sortOrder, year);
         res.json({ message: "List Products", products });
     } catch (error) {
         res.status(500).json({ message: "Error de servidor" });

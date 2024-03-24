@@ -1,8 +1,9 @@
 import { ProductsModel } from "../schema/products.model.js"
 
 export default class ProductsManager {
-    async getAll(page = 1, limit = 10) {
+    async getAll(page = 1, limit = 10, sortOrder, year) {
         try {
+
             const options = {
                 page: page,
                 limit: limit
