@@ -1,13 +1,11 @@
 // crear servidor express
 import express from "express";
-//Multer middleware express
-import multer from "multer";
 //Handlebars
 import exphbs from "express-handlebars";
+//Cookie-parser
+import cookieParser from "cookie-parser";
 //connect mongo
 import "./daos/mongoDb/connection/mongooseConnection.js";
-//socket
-import { Server } from "socket.io"
 //Import router
 // import routerProducts from "./routes/FS/products.router.js";
 // import routerCarts from "./routes/FS/carts.router.js";
@@ -22,6 +20,12 @@ const PORT = 8080;
 
 // creando una nueva instancia de la aplicación Express
 const app = express();
+
+//cookie
+const miClaveSecreta = "RapidoFurioso"
+//Middleware e analiza las cookies adjuntas en las solicitudes HTTP y las convierte en un objeto JavaScript. 
+//Esto facilita el acceso a las cookies desde el código del servidor.
+app.use(cookieParser(miClaveSecreta));
 
 //Este middleware cuando una solicitud llega al servidor con un cuerpo en formato JSON. 
 app.use(express.json());
@@ -43,7 +47,6 @@ app.set("views", "./src/views");
 app.use(express.static('./src/public'));
 
 //routes
-
 app.use("/api/client", routerUser);
 app.use("/api/products", routerDB);
 app.use("/api/cart", routerCartDB);
@@ -52,6 +55,35 @@ app.use("/", routerViews);
 // app.use("/api/carts", routerCarts);
 
 
+//setear una cookie
+//maxAge seteamos el timepo de vida de la cookie ms
+app.get('/setcookie', (req,res)=>{
+    res.cookie("coderCookie", "mi primera chamba", {maxAge: 10000}).send("cookie seteada");
+});
+//leer una cookie
+app.get('/leercookie', (req,res)=>{
+    res.send(req.cookies)
+});
+//borrar cookies
+app.get("/borrarcookie", (req,res)=>{
+    res.clearCookie("coderCookie").send("Eliminada la cookie")
+});
+
+//Enviar una cookie firmada
+app.get("/cookiefirmada", (req,res)=>{
+    res.cookie("cookieFirmada","estos es una Shi##", {signed: true})
+    .send("firmada");
+});
+//recuperamos una cookiefirmada
+app.get("/recuperamoscookiefirmada", (req,res)=>{
+    //req.signedCookies
+    const valorCookie = req.signedCookies.cookieFirmada;
+    if(valorCookie){
+        res.send("cookie recuperada: " + valorCookie);
+    } else {
+        res.send("cookie invalida")
+    }
+})
 
 //indicar al servidor que comience a escuchar las solicitudes
 const httpServer = app.listen(PORT, () => {
