@@ -1,24 +1,19 @@
 import { ProductsModel } from "../schema/products.model.js"
 
 export default class ProductsManager {
-    async getAll(page = 1, limit = 10, sortOrder, year) {
+    async getAll(page = 1, limit = 10) {
         try {
-            const sort = {};
+            const options = {
+                page: page,
+                limit: limit
+            };
 
-            if (sortOrder === 'asc') {
-                sort = 1;
-            } else if (sortOrder === 'desc') {
-                sort = -1;
-            }
+            const result = await ProductsModel.paginate({}, options);
 
-            const result = await ProductsModel.paginate({ year }, { page, limit, sort });
-
+            const nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}&limit=${limit}` : null;
+            const prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}&limit=${limit}` : null;
             // const nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}&limit=${limit}` : null;
-
             // const prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}&limit=${limit}` : null;
-            // para usar con las vistas Handlebars
-            const nextLink = result.hasNextPage ? `?page=${result.nextPage}&limit=${limit}` : null;
-            const prevLink = result.hasPrevPage ? `?page=${result.prevPage}&limit=${limit}` : null;
             return {
                 status: 'success',
                 payload: {

@@ -1,13 +1,14 @@
 import ProductsManager from "../daos/mongoDb/DB/productsManager.js";
 const productDao = new ProductsManager();
 
+
 export const getAll = async (req, res) => {
     try {
         const { page, limit, sort, year } = req.query;
-        const product = await productDao.getAll(page, limit, sort, year);
-        res.json({ message: "List Products", product });
+        const products = await productDao.getAll(page, limit, sort, year);
+        res.json({ message: "List Products", products });
     } catch (error) {
-        res.status(500).json({ message: "error server" });
+        res.status(500).json({ message: "Error de servidor" });
     }
 };
 
