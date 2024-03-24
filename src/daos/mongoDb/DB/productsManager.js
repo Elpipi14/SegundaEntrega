@@ -3,13 +3,15 @@ import { ProductsModel } from "../schema/products.model.js"
 export default class ProductsManager {
     async getAll(page = 1, limit = 10, sortOrder, year) {
         try {
-
+            const filter = year ? { year: { $eq: year } } : {};
+            const sort = sortOrder ? { price: sortOrder === 'asc' ? 1 : -1 } : {};
             const options = {
                 page: page,
-                limit: limit
+                limit: limit,
+                sort: sort
             };
-
-            const result = await ProductsModel.paginate({}, options);
+    
+            const result = await ProductsModel.paginate(filter, options);
 
             const nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}&limit=${limit}` : null;
             const prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}&limit=${limit}` : null;
