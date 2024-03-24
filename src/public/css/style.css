@@ -274,6 +274,10 @@ li a:hover {
     margin-bottom: 2rem;
 }
 
+.img {
+    height: auto !important;
+}
+
 .vist {
     width: 18rem;
     display: flex;
@@ -355,6 +359,8 @@ footer {
     }
 }
 
+
+/* Cart View */
 #cart {
     max-width: 600px;
     margin: 20px auto;
@@ -588,4 +594,16 @@ footer {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* Paginate */
+.paginate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.paginate a {
+    margin: 0.5rem;
 }

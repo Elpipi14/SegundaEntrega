@@ -5,6 +5,7 @@ const routerDB = Router();
 
 routerDB.get("/", controller.getAll);
 routerDB.get("/:id", controller.getById)
+routerDB.get("/search/:year", controller.getAggregation);
 routerDB.post("/add", controller.createProduct);
 routerDB.put("/update/:id", controller.productUpdate);
 routerDB.delete("/:id", controller.deleteProduct);

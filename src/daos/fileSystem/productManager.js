@@ -9,7 +9,7 @@ export class ProductManager {
     async addProduct(product) {
         try {
             // Validar que todos los campos sean obligatorios
-            if (!product.title || !product.description || !product.price || !product.thumbnail || !product.category || !product.code || !product.stock) {
+            if (!product.title || !product.description || !product.price || !product.imageUrl || !product.category || !product.code || !product.stock) {
                 console.log("All fields are required");
                 throw new Error("All fields are required");
             }

@@ -3,7 +3,8 @@ const productDao = new ProductsManager();
 
 export const getAll = async (req, res) => {
     try {
-        const product = await productDao.getAll();
+        const { page, limit, sort, year } = req.query;
+        const product = await productDao.getAll(page, limit, sort, year);
         res.json({ message: "List Products", product });
     } catch (error) {
         res.status(500).json({ message: "error server" });
@@ -54,7 +55,7 @@ export const productUpdate = async (req, res) => {
     }
 };
 
-export const deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const prodDel = await productDao.productDelete(id)
@@ -63,7 +64,25 @@ export const deleteProduct = async (req, res, next) => {
     } catch (error) {
         next(error.message);
     }
-};
+}
+
+export const getAggregation = async (req, res) => {
+    try {
+        const { year } = req.params;
+        const getProducts = await productDao.aggregationProduct(year);
+        //verifica si hay algún producto en el array devuelto 
+        if (getProducts.length > 0) {
+            res.json({ message: "List Products", getProducts });
+        } else {
+            res.status(404).json({ message: "Product not found" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 
 
 

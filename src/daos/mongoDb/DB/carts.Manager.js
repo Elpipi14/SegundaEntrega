@@ -1,5 +1,5 @@
 import { CartModel } from "../schema/carts.model.js";
-import { ProductsModel, productsCollection } from "../schema/products.model.js";
+import { ProductsModel } from "../schema/products.model.js";
 
 export default class CartsManager {
 
@@ -63,7 +63,7 @@ export default class CartsManager {
 
     async getAll() {
         try {
-            const carts = await CartModel.find();
+            const carts = await CartModel.find()
             return carts;
         } catch (error) {
             console.log(error);

@@ -92,9 +92,9 @@ socketClient.on('arrayProducts', (updatedProducts) => {
     let productListHTML = ``;
     updatedProducts.forEach(e => {
         productListHTML +=
-            ` 
+            `
             <div class="card" style="width: 18rem;">
-                <img src="${e.thumbnail}" class="mx-auto img-thumbnail img" alt="${e.thumbnail}">
+                <img src="${e.thumbnail}" class="mx-auto img-thumbnail img" alt="${e.imageUrl}">
                 <div class="card_info card-body">
                     <h2 class="card-text">Title: ${e.title}</h2>
                     <p class="card-text">ID: ${e.id}</p>
@@ -102,6 +102,7 @@ socketClient.on('arrayProducts', (updatedProducts) => {
                     <p class="card-text">Price: ${e.price}</p>
                     <p class="card-text">Stocks: ${e.stock}</p>
                     <p class="card-text">Category: ${e.category}</p>
+                    <p class="card-text">Category: ${e.year}</p>
                 </div>
                 <div class="delete">
                     <button class="btn cart px-auto delete" id="${e.id}">Delete</button>
